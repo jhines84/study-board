@@ -2302,8 +2302,16 @@ function sfxRight(small){if(!soundOn)return;const c=ac();if(!c)return;const t=c.
   tone(c,500,t+0.28,0.22,'sine',0.05,1600);
   [1046.5,1318.5,1568,2093].forEach(f=>tone(c,f,t+0.32,0.7,'triangle',0.06));
   for(let i=0;i<10;i++)tone(c,2200+Math.random()*2200,t+0.38+i*0.045,0.09,'sine',0.025);}
-function sfxKey(del){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.005;
-  tone(c,del?380:780+Math.random()*160,t,0.05,'triangle',0.06);tone(c,del?190:1500+Math.random()*300,t,0.02,'square',0.012)}
+let keyBuf=null;
+function sfxKey(del){if(!soundOn)return;const c=ac();if(!c)return;keyClick(c,c.currentTime+0.002,del)}
+/* Soft keyboard tick: a very short burst of filtered noise plus a tiny low thump (no pitched beep). */
+function keyClick(c,t,del){
+  if(!keyBuf||keyBuf.sampleRate!==c.sampleRate){const n=Math.floor(c.sampleRate*0.035);keyBuf=c.createBuffer(1,n,c.sampleRate);const d=keyBuf.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/(c.sampleRate*0.0045))}
+  const s=c.createBufferSource();s.buffer=keyBuf;s.playbackRate.value=0.9+Math.random()*0.2;
+  const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=del?1150:2000;f.Q.value=0.8;
+  const g=c.createGain();g.gain.value=del?0.5:0.42;s.connect(f);f.connect(g);g.connect(c.destination);s.start(t);
+  const o=c.createOscillator(),og=c.createGain();o.type='sine';o.frequency.setValueAtTime(del?140:190,t);o.frequency.exponentialRampToValueAtTime(70,t+0.03);
+  og.gain.setValueAtTime(del?0.09:0.07,t);og.gain.exponentialRampToValueAtTime(0.0001,t+0.03);o.connect(og);og.connect(c.destination);o.start(t);o.stop(t+0.04)}
 function sfxWrong(){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.02;
   tone(c,349.23,t,0.2,'sine',0.07);tone(c,293.66,t+0.18,0.38,'sine',0.06,262)}
 
@@ -2405,7 +2413,7 @@ function editPlayer(p){
   nm.addEventListener('input',e=>sfxKey(String(e.inputType||'').startsWith('delete')));
   nm.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();nm.blur()}});
   app.querySelectorAll('.abtn').forEach(b=>b.onclick=()=>{d.animal=b.dataset.a;app.querySelectorAll('.abtn').forEach(x=>x.setAttribute('aria-pressed',x===b));prev.innerHTML=avatar(d.animal,110)});
-  app.querySelectorAll('.kp').forEach(b=>b.onclick=()=>{d.kid=b.dataset.k;app.querySelectorAll('.kp').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+  app.querySelectorAll('.kp').forEach(b=>b.onclick=()=>{d.kid=b.dataset.k;app.querySelectorAll('.kp').forEach(x=>x.setAttribute('aria-pressed',x===b));document.body.dataset.kid=d.kid});
   document.getElementById('psave').onclick=()=>{const name=document.getElementById('pname').value.trim().slice(0,20);
     if(!name){document.getElementById('perr').hidden=false;document.getElementById('pname').focus();return}
     if(isNew){players.push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,animal:d.animal,kid:d.kid,sound:true,pencil:false,grade:1,std:'tx',book:{sci:'',math:''}})}

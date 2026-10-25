@@ -1,5 +1,5 @@
 /* Study Board offline support. Change VERSION whenever you upload new files. */
-const VERSION = 'study-board-v5';
+const VERSION = 'study-board-v7';
 const FILES = [
   './', './index.html', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-touch-icon.png',
