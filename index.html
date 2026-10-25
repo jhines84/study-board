@@ -191,7 +191,8 @@ button:focus-visible{outline:3px solid var(--m-blue);outline-offset:2px}
 }
 .nextbar{position:sticky;bottom:0;background:var(--surface);padding-top:10px;display:flex;justify-content:flex-end}
 /* Highlighter */
-.qtext{touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html{touch-action:manipulation}
+.qtext{touch-action:pan-y;touch-action:pan-y pinch-zoom;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .qtext .w{border-radius:4px;cursor:pointer;transition:background-color .1s}
 .qtext .w.hl{background:var(--hl);box-shadow:.14em 0 0 var(--hl),-.14em 0 0 var(--hl)}
 .hlbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:-6px}
@@ -289,6 +290,11 @@ button:focus-visible{outline:3px solid var(--m-blue);outline-offset:2px}
 /* Players */
 .whobar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px}
 .pchip{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:999px;padding:4px 16px 4px 4px;box-shadow:0 0 0 3px var(--line);min-width:0}
+.whoL{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0}
+.quick{display:flex;gap:8px;flex-wrap:wrap}
+.qp{border:0;padding:0;background:none;border-radius:50%;line-height:0;box-shadow:0 0 0 3px var(--line);transition:transform .12s}
+.qp:active{transform:scale(.92)}
+@media (hover:hover) and (pointer:fine){.qp:hover{box-shadow:0 0 0 3px var(--math)}}
 .pchip b{font-family:var(--font-display);font-size:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .guestchip{padding:8px 16px;font-weight:700;color:var(--muted)}
 .ava{flex:none;display:block}
@@ -2018,7 +2024,8 @@ const CARDCC={
 function home(){
   stopSpeech();app.classList.remove('fit');const C=(std==='tx'?CARD:CARDCC)[grade],TX=std==='tx',sb=bookOf('sci'),sm=bookMap('sci'),ch3=!!sm;
   app.innerHTML=`
-  <div class="whobar">${player?`<span class="pchip">${avatar(player.animal,40)}<b>${esc(player.name)}</b></span>`:`<span class="pchip guestchip">Playing as guest</span>`}
+  <div class="whobar"><div class="whoL">${player?`<span class="pchip">${avatar(player.animal,40)}<b>${esc(player.name)}</b></span>`:`<span class="pchip guestchip">Playing as guest</span>`}
+    ${players.length&&(players.length>1||!player)?`<div class="quick" role="group" aria-label="Switch player">${players.filter(p=>p!==player).map(p=>`<button class="qp" type="button" data-id="${p.id}" aria-label="Play as ${esc(p.name)}" title="${esc(p.name)}">${avatar(p.animal,40)}</button>`).join('')}${player?`<button class="qp" type="button" data-id="" aria-label="Play as guest" title="Guest">${GUESTICON}</button>`:''}</div>`:''}</div>
     <button class="back" id="swp">${players.length?'Switch player':'Add players'}</button></div>
   <header class="home-head">
     <span class="eyebrow">${ORD[grade]} grade practice · ${TX?'Texas':'Common Core & NGSS'}</span>
@@ -2068,6 +2075,7 @@ function home(){
   <p class="foot">${!TX?`Math follows the Common Core State Standards and science follows the Next Generation Science Standards (NGSS), which most states use. Guests start on Texas, 1st grade, and the Everyone colors each time the app opens.`:`${ORD[grade]} grade questions follow the Texas standards (TEKS) for ${ORD[grade]} grade.${sm?` Science chapters are in the order of ${esc(sb.nm)}.`:''}`} They are practice questions, not copied from any book. Study Board does not save scores or keep track of answers. Players and their settings are saved only on this device, in this browser.</p>${FOOTLINK}`;
   app.querySelectorAll('.subject').forEach(b=>b.onclick=()=>topics(b.dataset.s));
   document.getElementById('swp').onclick=()=>who();bindFoot();
+  app.querySelectorAll('.qp').forEach(b=>b.onclick=()=>{usePlayer(players.find(x=>x.id===b.dataset.id)||null);if(soundOn)sfxRight(true)});
   document.getElementById('stdsel').onchange=e=>{std=e.target.value;if(player){player.std=std;savePlayer()}home();if(soundOn)sfxRight(true)};
   app.querySelectorAll('.bksel').forEach(sel=>sel.onchange=e=>{book.sci=e.target.value;if(player){player.book={...book};savePlayer()}home();if(soundOn)sfxRight(true)});
   app.querySelectorAll('.gp').forEach(b=>b.onclick=()=>{grade=+b.dataset.g;if(player){player.grade=grade;savePlayer()}home();if(soundOn)sfxRight(true)});
@@ -2242,6 +2250,7 @@ let strokes=[],ro=null,pencilOnly=false;try{pencilOnly=localStorage.getItem('stu
 function highlighter(){
   const qt=document.getElementById('qt');let mode=null;
   const at=e=>{const el=document.elementFromPoint(e.clientX,e.clientY);return el&&el.closest?el.closest('#qt .w'):null};
+  qt.addEventListener('touchend',e=>{const n=Date.now();if(n-(qt._lt||0)<400&&e.changedTouches.length===1)e.preventDefault();qt._lt=n},{passive:false});
   qt.onpointerdown=e=>{const w=e.target.closest('.w');if(!w)return;e.preventDefault();mode=!w.classList.contains('hl');w.classList.toggle('hl',mode);try{qt.setPointerCapture(e.pointerId)}catch(_){}};
   qt.onpointermove=e=>{if(mode===null)return;const w=at(e);if(w)w.classList.toggle('hl',mode)};
   const stop=()=>{mode=null};qt.onpointerup=stop;qt.onpointercancel=stop;
@@ -2293,6 +2302,8 @@ function sfxRight(small){if(!soundOn)return;const c=ac();if(!c)return;const t=c.
   tone(c,500,t+0.28,0.22,'sine',0.05,1600);
   [1046.5,1318.5,1568,2093].forEach(f=>tone(c,f,t+0.32,0.7,'triangle',0.06));
   for(let i=0;i<10;i++)tone(c,2200+Math.random()*2200,t+0.38+i*0.045,0.09,'sine',0.025);}
+function sfxKey(del){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.005;
+  tone(c,del?380:780+Math.random()*160,t,0.05,'triangle',0.06);tone(c,del?190:1500+Math.random()*300,t,0.02,'square',0.012)}
 function sfxWrong(){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.02;
   tone(c,349.23,t,0.2,'sine',0.07);tone(c,293.66,t+0.18,0.38,'sine',0.06,262)}
 
@@ -2343,6 +2354,7 @@ function savePlayer(){if(player)savePlayers()}
 /* Guest uses the device's shared settings */
 let guest={kid:'neutral',sound:true,pencil:false};
 try{guest.sound=localStorage.getItem('studyboard-sound')!=='off';guest.pencil=localStorage.getItem('studyboard-pencil')==='1'}catch(e){}
+const GUESTICON='<svg class="ava" viewBox="0 0 100 100" width="40" height="40" role="img" aria-label="Guest"><circle cx="50" cy="50" r="50" fill="#c9d2d8"/><circle cx="50" cy="40" r="16" fill="#6b7780"/><path d="M22 82c4-16 15-24 28-24s24 8 28 24" fill="#6b7780"/></svg>';
 function usePlayer(p){
   player=p||null;const s=p||guest;
   document.body.dataset.kid=s.kid||'neutral';soundOn=s.sound!==false;pencilOnly=!!s.pencil;
@@ -2350,7 +2362,7 @@ function usePlayer(p){
   home();
 }
 function who(){
-  stopSpeech();app.classList.remove('fit');document.body.dataset.kid=(player||guest).kid||'neutral';
+  stopSpeech();app.classList.remove('fit');document.body.dataset.kid='neutral'; /* player pages always use Everyone colors */
   app.innerHTML=`<header class="home-head"><span class="eyebrow">Study Board</span><h1>Who’s <span>playing?</span></h1>
     <p>Tap your animal to start.</p></header>
   <div class="players">
@@ -2372,7 +2384,7 @@ function editPlayer(p){
   <div class="pform">
     <div class="ppreview" id="pprev">${avatar(d.animal,110)}</div>
     <label class="flabel" for="pname">Name</label>
-    <input id="pname" type="text" maxlength="20" autocomplete="off" autocapitalize="words" spellcheck="false" value="${esc(d.name)}" placeholder="Type a name">
+    <input id="pname" type="text" maxlength="20" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" value="${esc(d.name)}" placeholder="Type a name">
     <p class="ferr" id="perr" hidden>Type a name first.</p>
     <span class="flabel">Pick an animal</span>
     <div class="agrid">${ANIMAL_KEYS.map(k=>`<button class="abtn" type="button" data-a="${k}" aria-pressed="${k===d.animal}" aria-label="${ANIMALS[k][0]}">${avatar(k,62)}<small>${ANIMALS[k][0]}</small></button>`).join('')}</div>
@@ -2389,9 +2401,11 @@ function editPlayer(p){
   </div>`;
   const back=()=>who();
   document.getElementById('bk').onclick=back;document.getElementById('pcancel').onclick=back;
-  const prev=document.getElementById('pprev');
+  const prev=document.getElementById('pprev'),nm=document.getElementById('pname');
+  nm.addEventListener('input',e=>sfxKey(String(e.inputType||'').startsWith('delete')));
+  nm.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();nm.blur()}});
   app.querySelectorAll('.abtn').forEach(b=>b.onclick=()=>{d.animal=b.dataset.a;app.querySelectorAll('.abtn').forEach(x=>x.setAttribute('aria-pressed',x===b));prev.innerHTML=avatar(d.animal,110)});
-  app.querySelectorAll('.kp').forEach(b=>b.onclick=()=>{d.kid=b.dataset.k;app.querySelectorAll('.kp').forEach(x=>x.setAttribute('aria-pressed',x===b));document.body.dataset.kid=d.kid});
+  app.querySelectorAll('.kp').forEach(b=>b.onclick=()=>{d.kid=b.dataset.k;app.querySelectorAll('.kp').forEach(x=>x.setAttribute('aria-pressed',x===b))});
   document.getElementById('psave').onclick=()=>{const name=document.getElementById('pname').value.trim().slice(0,20);
     if(!name){document.getElementById('perr').hidden=false;document.getElementById('pname').focus();return}
     if(isNew){players.push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,animal:d.animal,kid:d.kid,sound:true,pencil:false,grade:1,std:'tx',book:{sci:'',math:''}})}
@@ -2403,6 +2417,10 @@ function editPlayer(p){
   if(isNew)setTimeout(()=>{try{document.getElementById('pname').focus({preventScroll:true})}catch(e){}},50);
   window.scrollTo(0,0);
 }
+
+/* Tapping empty space closes the on-screen keyboard. Buttons and fields work as before. */
+document.addEventListener('pointerdown',e=>{const a=document.activeElement;if(!a||!/^(INPUT|TEXTAREA)$/.test(a.tagName))return;
+  if(e.target.closest&&e.target.closest('input,textarea,select,label,button,a,[role="button"]'))return;a.blur()},true);
 
 /* ---------- Settings for the person hosting Study Board ---------- */
 /* Leave a value empty ('') to hide that item. */
