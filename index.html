@@ -133,6 +133,7 @@ button:focus-visible{outline:3px solid var(--m-blue);outline-offset:2px}
   background-size:28px 28px;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;touch-action:none}
 @media (min-width:900px){.board{height:min(64vh,560px)}}
 .board canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.board-wrap,.board-wrap *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 .board .hint{position:absolute;left:0;right:0;top:42%;text-align:center;color:var(--muted);font-family:var(--font-display);font-size:22px;pointer-events:none;opacity:.7}
 .tray{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 6px 12px;margin:10px -10px 0;background:var(--tray);border-radius:0 0 18px 18px;
   padding-left:14px;padding-right:14px}
@@ -2817,7 +2818,15 @@ function speak(t,btn){try{const ss=window.speechSynthesis;if(!ss)return;
 function stopSpeech(){curU=null;try{window.speechSynthesis&&window.speechSynthesis.cancel()}catch(e){}resetSpeakBtn()}
 
 /* ---------- Whiteboard ---------- */
-let strokes=[],ro=null,pencilOnly=false;try{pencilOnly=localStorage.getItem('studyboard-pencil')==='1'}catch(e){}
+let strokes=[],ro=null,pencilOnly=false,inkAt=0;
+/* While a stroke is being drawn, other touches (a resting palm) cannot start a zoom or scroll. Expires on its own after a moment. */
+const inkBusy=()=>inkAt&&Date.now()-inkAt<800;
+document.addEventListener('touchstart',e=>{if(inkBusy()&&e.cancelable)e.preventDefault()},{passive:false,capture:true});
+document.addEventListener('gesturestart',e=>{if(inkBusy())e.preventDefault()},true);
+/* No text gets selected (blue highlight, copy bubble) while writing on the board. */
+document.addEventListener('selectstart',e=>{if(inkBusy())e.preventDefault()},true);
+const unsel=()=>{try{const s=window.getSelection();if(s&&s.rangeCount)s.removeAllRanges()}catch(_){}};
+try{pencilOnly=localStorage.getItem('studyboard-pencil')==='1'}catch(e){}
 function highlighter(){
   const qt=document.getElementById('qt'),pt=document.getElementById('ptext');let mode=null;
   const at=(e,el)=>{const x=document.elementFromPoint(e.clientX,e.clientY);return x&&x.closest&&el.contains(x)?x.closest('.w'):null};
@@ -2835,7 +2844,7 @@ function highlighter(){
   document.getElementById('hlclear').onclick=()=>{qt.querySelectorAll('.hl').forEach(w=>w.classList.remove('hl'));if(pt){pt.querySelectorAll('.hl').forEach(w=>w.classList.remove('hl'));rdSaveHl()}};
 }
 function board(){
-  strokes=[];
+  strokes=[];inkAt=0;
   const wrap=document.getElementById('board'),cv=document.getElementById('cv'),ctx=cv.getContext('2d'),hint=document.getElementById('hint');
   let color='ink',thick=false,erase=false,cur=null;
   const css=k=>getComputedStyle(document.body).getPropertyValue('--'+k).trim()||'#000';
@@ -2845,9 +2854,14 @@ function board(){
     ctx.moveTo(p[from][0],p[from][1]);for(let i=from+1;i<p.length;i++)ctx.lineTo(p[i][0],p[i][1]);ctx.stroke()}
   function redraw(){ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);ctx.restore();strokes.forEach(s=>seg(s,0));ctx.globalCompositeOperation='source-over';hint.hidden=strokes.length>0}
   const pos=e=>{const r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
-  cv.onpointerdown=e=>{if(pencilOnly&&e.pointerType!=='pen')return;e.preventDefault();try{cv.setPointerCapture(e.pointerId)}catch(_){}cur={c:color,w:erase?26:thick?7:3.5,erase,pts:[pos(e)]};strokes.push(cur);seg(cur,0);hint.hidden=true};
-  cv.onpointermove=e=>{if(!cur)return;e.preventDefault();const evs=e.getCoalescedEvents?e.getCoalescedEvents():[e];for(const ev of evs)cur.pts.push(pos(ev));seg(cur,Math.max(0,cur.pts.length-evs.length-1))};
-  const end=()=>{cur=null;ctx.globalCompositeOperation='source-over'};cv.onpointerup=end;cv.onpointercancel=end;cv.onpointerleave=e=>{if(e.buttons===0)end()};
+  cv.onpointerdown=e=>{if(pencilOnly&&e.pointerType!=='pen')return;e.preventDefault();inkAt=Date.now();unsel();try{cv.setPointerCapture(e.pointerId)}catch(_){}cur={c:color,w:erase?26:thick?7:3.5,erase,pts:[pos(e)]};strokes.push(cur);seg(cur,0);hint.hidden=true};
+  cv.onpointermove=e=>{if(!cur)return;e.preventDefault();inkAt=Date.now();const evs=e.getCoalescedEvents?e.getCoalescedEvents():[e];for(const ev of evs)cur.pts.push(pos(ev));seg(cur,Math.max(0,cur.pts.length-evs.length-1))};
+  const end=()=>{if(cur)unsel();cur=null;inkAt=0;ctx.globalCompositeOperation='source-over'};cv.onpointerup=end;cv.onpointercancel=end;cv.onpointerleave=e=>{if(e.buttons===0)end()};
+  /* Taps and touches on the board never zoom or scroll the page (quick taps like a dot or "=" can look like a double-tap). */
+  if(!wrap._nz){wrap._nz=1;const nz=e=>{if(e.cancelable)e.preventDefault()};
+    ['touchstart','touchmove','touchend'].forEach(t=>wrap.addEventListener(t,nz,{passive:false}));
+    ['gesturestart','gesturechange','dblclick'].forEach(t=>wrap.addEventListener(t,nz));
+    const bw=wrap.closest('.board-wrap')||wrap;['selectstart','contextmenu'].forEach(t=>bw.addEventListener(t,e=>{if(!e.target.closest('input,textarea'))e.preventDefault()}))}
   app.querySelectorAll('.marker').forEach(m=>m.onclick=()=>{color=m.dataset.k;erase=false;upd()});
   const th=document.getElementById('thick'),er=document.getElementById('eraser'),pn=document.getElementById('pencil');
   const pu=()=>{pn.classList.toggle('on',pencilOnly);pn.setAttribute('aria-pressed',pencilOnly);hint.textContent=pencilOnly?'Pencil only: draw with your Apple Pencil':'Draw with your finger or a pencil'};pu();
@@ -2870,7 +2884,12 @@ function markKid(){app.querySelectorAll('.kp').forEach(b=>b.setAttribute('aria-p
 
 /* ---------- Sound effects (made with Web Audio, no files) ---------- */
 let actx=null,soundOn=true;try{soundOn=localStorage.getItem('studyboard-sound')!=='off'}catch(e){}
-function ac(){try{if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();return actx}catch(e){return null}}
+function ac(){try{
+  try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback'}catch(_){}
+  if(actx&&actx.state==='closed')actx=null;
+  if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();
+  if(actx.state!=='running'){const r=actx.resume();if(r&&r.catch)r.catch(()=>{})}
+  return actx}catch(e){return null}}
 function tone(c,f,t0,dur,type,vol,to){const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(f,t0);if(to)o.frequency.exponentialRampToValueAtTime(to,t0+dur);
   g.gain.setValueAtTime(0.0001,t0);g.gain.exponentialRampToValueAtTime(vol,t0+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+dur+0.05)}
 function sfxRight(small){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.02;
@@ -2891,7 +2910,7 @@ function keyClick(c,t,del){
   const o=c.createOscillator(),og=c.createGain();o.type='sine';o.frequency.setValueAtTime(del?140:190,t);o.frequency.exponentialRampToValueAtTime(70,t+0.03);
   og.gain.setValueAtTime(del?0.09:0.07,t);og.gain.exponentialRampToValueAtTime(0.0001,t+0.03);o.connect(og);og.connect(c.destination);o.start(t);o.stop(t+0.04)}
 function sfxWrong(){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.02;
-  tone(c,349.23,t,0.2,'sine',0.07);tone(c,293.66,t+0.18,0.38,'sine',0.06,262)}
+  tone(c,349.23,t,0.22,'triangle',0.2);tone(c,698.46,t,0.18,'sine',0.09);tone(c,293.66,t+0.18,0.4,'triangle',0.19,262);tone(c,587.33,t+0.18,0.34,'sine',0.085,524)}
 
 /* ---------- Confetti ---------- */
 function confetti(from){
