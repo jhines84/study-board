@@ -336,6 +336,129 @@ button:focus-visible{outline:3px solid var(--m-blue);outline-offset:2px}
 .mbm.long .mbq{font-size:clamp(17px,2.4vw,24px)}
 @media (max-width:699px){.rbq.long{font-size:24px}}
 @media (min-width:700px) and (min-height:900px){.rbq.long{font-size:44px}}
+/* Bloom Garden (Version 90): 4 mode buttons (2 x 2 on iPad portrait), seed picker, garden scene, bucket, bloom */
+.fmode{grid-template-columns:repeat(4,1fr);max-width:1000px}
+@media (min-width:640px) and (max-width:1023px){.fmode{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:639px){.fmode{grid-template-columns:1fr}}
+.gdseeds{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;margin-top:12px;max-width:520px}
+.gdseeds label{font-weight:700;font-size:14px;color:var(--muted)}
+.gdsicon{display:inline-grid;place-items:center;width:30px;height:30px;flex:none}
+.gdsicon .gdq{width:30px;height:30px;font-size:19px}
+.gdseeds .selwrap{flex:1 1 220px;max-width:340px}
+.gdq{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#ffd23f;color:#5a3412;font-family:var(--font-display);font-weight:800;font-size:17px}
+.gdmini{flex:none;overflow:hidden}
+.gdw{display:flex;flex-direction:column;gap:12px}
+.gdmain{display:flex;flex-direction:column;gap:12px;min-width:0}
+.gdf{position:relative;overflow:hidden;border-radius:24px;height:300px;flex:none;--top:70%;isolation:isolate}
+.gdf .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.gdf.earth{background:linear-gradient(180deg,#78c6f6 0%,#b9e3ff 60%,#e2f4ff 100%);box-shadow:inset 0 0 0 2px #9fd2f2}
+.gdf.alien{background:radial-gradient(1.6px 1.6px at 18px 22px,#fff 98%,transparent),radial-gradient(1.2px 1.2px at 84px 64px,#fff 98%,transparent),radial-gradient(1.4px 1.4px at 130px 18px,#d9c8ff 98%,transparent),radial-gradient(1px 1px at 52px 100px,#fff 98%,transparent),radial-gradient(1.3px 1.3px at 160px 90px,#bff 98%,transparent),linear-gradient(180deg,#140d3a 0%,#2c1863 60%,#43237e 100%);background-size:180px 120px,180px 120px,180px 120px,180px 120px,180px 120px,auto;box-shadow:inset 0 0 0 2px #4b2f8f}
+.gdsun{position:absolute;left:5%;top:16%;width:62px;height:62px;border-radius:50%;background:#ffd84a;box-shadow:0 0 0 8px rgba(255,216,74,.35),0 0 0 18px rgba(255,216,74,.15);z-index:0}
+.gdcloud{position:absolute;width:86px;height:26px;border-radius:999px;background:#fff;opacity:.9;z-index:0;animation:gdcl 26s linear infinite}
+.gdcloud::before,.gdcloud::after{content:'';position:absolute;background:#fff;border-radius:50%}
+.gdcloud::before{width:36px;height:36px;left:14px;top:-16px}.gdcloud::after{width:28px;height:28px;left:42px;top:-11px}
+.gdcloud.c1{top:24%;left:68%}.gdcloud.c2{top:44%;left:12%;transform:scale(.7);animation-duration:34s;animation-delay:-12s}
+@keyframes gdcl{0%{translate:0 0}50%{translate:-28px 0}100%{translate:0 0}}
+.gdplanet{position:absolute;left:6%;top:18%;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffb3d9,#c45ad6 60%,#7a2f9e);z-index:0}
+.gdplanet::after{content:'';position:absolute;left:-16px;top:21px;width:86px;height:14px;border-radius:50%;border:3px solid #ffd166;transform:rotate(-16deg);border-top-color:transparent}
+.gdstar2{position:absolute;right:9%;top:30%;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#c8fff1,#4fd1c5);box-shadow:0 0 14px #4fd1c5;z-index:0}
+.gdground{position:absolute;left:0;right:0;bottom:0;height:17%;z-index:0}
+.earth .gdground{background:#7cc95a;box-shadow:inset 0 5px 0 #5fae3f}
+.alien .gdground{background:radial-gradient(ellipse 22px 6px at 18% 55%,#2f1a5c 98%,transparent),radial-gradient(ellipse 30px 7px at 82% 45%,#2f1a5c 98%,transparent),#4a2d7a;box-shadow:inset 0 5px 0 #6b45a8}
+.gdhud{position:absolute;left:10px;right:10px;top:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;z-index:4}
+.gdchip{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:7px;align-items:center;min-width:0;padding:4px 14px 4px 6px;line-height:1.1;border-radius:999px;background:rgba(255,255,255,.88);color:#1b2233;font-weight:700;font-size:14px;box-shadow:0 1px 0 rgba(0,0,0,.08)}
+.alien .gdchip{background:rgba(255,255,255,.14);color:#fff}
+.gdchip .gdmini{grid-row:span 2}.gdchip b{font-family:var(--font-display);font-size:16px;white-space:nowrap}
+.gdchip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.8;font-size:13px}
+.gdpips{display:flex;align-items:center;gap:4px;flex:none;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.88)}
+.alien .gdpips{background:rgba(255,255,255,.14)}
+.gdpips i{width:9px;height:9px;border-radius:50%;background:rgba(27,34,51,.18);transition:background .3s,transform .3s}
+.alien .gdpips i{background:rgba(255,255,255,.28)}
+.gdpips i.big{width:14px;height:14px;box-shadow:inset 0 0 0 2px rgba(27,34,51,.25)}
+.earth .gdpips i.on{background:#3ea0f0}.alien .gdpips i.on{background:#8dff4f}
+.gdpips i.big.on{transform:scale(1.15);box-shadow:none}
+.earth .gdpips i.big.on{background:#ff9ec0}.alien .gdpips i.big.on{background:#c79bff}
+.gdstage{position:absolute;left:50%;bottom:2%;top:46px;aspect-ratio:200/260;transform:translateX(-50%);z-index:2}
+.gdstage>svg,.gdpl,.gdpl>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gdpl{transform-origin:50% 76.15%;transition:transform .55s cubic-bezier(.3,1.5,.5,1)}
+.gdpl.grow>svg{animation:gdgrow .7s cubic-bezier(.3,1.6,.5,1);transform-origin:50% 76%}
+@keyframes gdgrow{0%{scale:.86;opacity:.6}55%{scale:1.07;opacity:1}80%{rotate:-2deg}100%{scale:1}}
+.gdpl.shrink>svg{animation:gdshrink .6s ease-out;transform-origin:50% 76%}
+@keyframes gdshrink{0%{scale:1.14 1.1;filter:saturate(.4) brightness(.9)}100%{scale:1;filter:none}}
+.gdpl.droop>svg{animation:gddroop .85s ease-in-out;transform-origin:50% 76%}
+@keyframes gddroop{25%{rotate:-10deg;scale:1 .88;filter:saturate(.35) brightness(.9)}60%{rotate:-8deg;scale:1 .9;filter:saturate(.4) brightness(.9)}100%{rotate:0deg;scale:1;filter:none}}
+.gd-glow{animation:gdglow 1.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+@keyframes gdglow{to{opacity:.12;scale:1.12}}
+.gd-tw{animation:gdtw 1.2s ease-in-out infinite alternate}
+@keyframes gdtw{to{opacity:.35}}
+.gd-wob{animation:gdwob 1.1s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes gdwob{25%{rotate:-6deg}75%{rotate:6deg}}
+.gdbk{position:absolute;left:74%;top:66%;width:28%;transform-origin:22% 30%;z-index:3}
+.gdbk svg{display:block;width:100%;height:auto}
+.gdbk.go{animation:gdtip 1.05s ease-in-out}
+@keyframes gdtip{0%{translate:0 0;rotate:0deg}22%{translate:-50% -83%;rotate:-20deg}42%,74%{translate:-50% -83%;rotate:-105deg}100%{translate:0 0;rotate:0deg}}
+.gdpour{position:absolute;left:50%;top:54%;width:17%;height:22%;pointer-events:none;z-index:3}
+.gdpour i{position:absolute;left:90%;top:0;width:9%;aspect-ratio:3/4;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:0}
+.earth .gdpour i{background:#58b4ff;box-shadow:inset -2px -2px 0 #2f84d8}
+.alien .gdpour i{width:13%;aspect-ratio:1;border-radius:50%;background:#8dff4f;box-shadow:inset -2px -2px 0 #4cc21a,0 0 8px #8dff4f}
+.gdpour.go i{animation:gddrop .42s ease-in calc(.42s + var(--d)) 1 both}
+.alien .gdpour.go i{animation-name:gdgoo;animation-duration:.5s}
+@keyframes gddrop{0%{opacity:0;left:90%;top:0}15%{opacity:1}90%{opacity:1}100%{opacity:0;left:calc(20% + var(--x));top:92%}}
+@keyframes gdgoo{0%{opacity:0;left:90%;top:0;scale:.6}15%{opacity:1}60%{scale:1 1.35}90%{opacity:1}100%{opacity:0;left:calc(20% + var(--x));top:92%;scale:1.3 .7}}
+.gdspl{position:absolute;left:50%;top:74%;width:30%;height:5%;margin-left:-15%;border-radius:50%;opacity:0;pointer-events:none;z-index:3}
+.earth .gdspl{border:3px solid #58b4ff}.alien .gdspl{border:3px solid #8dff4f;box-shadow:0 0 10px #8dff4f}
+.gdspl.go{animation:gdspl .5s ease-out .78s both}
+@keyframes gdspl{0%{opacity:1;scale:.3}100%{opacity:0;scale:1.4}}
+.gdsp,.gdfx{position:absolute;inset:0;pointer-events:none;z-index:4}
+.gdsp i{position:absolute;left:50%;top:var(--top);width:16px;height:16px;margin:-8px;opacity:0;animation:gdspk .9s ease-out var(--d) both;
+  background:#fff6b0;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.gdsp i.fast{background:#fff;filter:drop-shadow(0 0 4px #ffe14a)}
+.gdsp i.grow{background:#ffe14a}
+.gdsp i.gold{background:#ffd23f;width:22px;height:22px;margin:-11px}
+@keyframes gdspk{0%{opacity:0;translate:0 0;scale:.3}25%{opacity:1}100%{opacity:0;translate:calc(var(--x) * 2.4) calc(var(--y) * 3);scale:1.1;rotate:90deg}}
+.gdmsg{position:absolute;left:50%;bottom:12px;translate:-50% 0;display:none;align-items:center;gap:8px;z-index:6;padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.94);color:#1b2233;
+  font-family:var(--font-display);font-size:clamp(20px,3.6vw,30px);font-weight:800;white-space:nowrap;box-shadow:0 4px 18px rgba(0,0,0,.18)}
+.gdmsg.show{display:flex;animation:gdmsg .6s cubic-bezier(.3,1.6,.5,1)}
+.gdmsg.gold{background:linear-gradient(90deg,#fff3b0,#ffd23f,#fff3b0);box-shadow:0 0 0 3px #e0a800,0 4px 22px rgba(224,168,0,.5)}
+@keyframes gdmsg{from{scale:.4;opacity:0}}
+.gdf.bloomed .gdpl{transform:scale(1.06)}
+.gdf.gold .gdpl>svg{filter:drop-shadow(0 0 10px #ffd23f) drop-shadow(0 0 3px #fff3b0) saturate(1.25)}
+.gdf.bloomed::before{content:'';position:absolute;left:50%;top:var(--top);width:70%;aspect-ratio:1;translate:-50% -30%;border-radius:50%;z-index:1;
+  background:radial-gradient(circle,rgba(255,255,255,.75),rgba(255,255,255,0) 65%);animation:gdglow2 1.6s ease-out both}
+.alien.bloomed::before{background:radial-gradient(circle,rgba(199,155,255,.7),rgba(199,155,255,0) 65%)}
+.gdf.gold::before{background:radial-gradient(circle,rgba(255,215,64,.8),rgba(255,215,64,0) 65%)}
+@keyframes gdglow2{from{opacity:0;scale:.3}}
+.gdbee{position:absolute;left:50%;top:17%;width:15%;animation:gdbee 2.6s linear infinite}
+.gdbee svg{display:block;width:100%;animation:gdbuzz .14s linear infinite alternate}
+@keyframes gdbee{0%{translate:120% -40%}25%{translate:-20% -150%}50%{translate:-200% -30%}75%{translate:-40% 90%;scale:-1 1}100%{translate:120% -40%;scale:-1 1}}
+@keyframes gdbuzz{to{translate:0 -6%}}
+.gdfx .pet{position:absolute;top:24%;width:4%;aspect-ratio:1;border-radius:0 70% 0 70%;background:#ffb3cc;box-shadow:inset -1px -1px 0 #e0789e;opacity:0;animation:gdpet 2.6s ease-in var(--d) infinite;scale:var(--s)}
+@keyframes gdpet{0%{opacity:0;translate:0 0;rotate:0deg}12%{opacity:1}50%{translate:12px 120%}100%{opacity:0;translate:-10px 1100%;rotate:300deg}}
+.gdfx .mspk{position:absolute;top:30%;width:5%;aspect-ratio:1;background:#fff6b0;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);opacity:0;animation:gdmspk 2s ease-out var(--d) infinite}
+@keyframes gdmspk{0%{opacity:0;translate:0 0;scale:.4}20%{opacity:1}100%{opacity:0;translate:0 -340%;scale:1.2;rotate:120deg}}
+.gdfx .seed{position:absolute;left:50%;top:var(--top);width:4%;aspect-ratio:1;margin:-2%;border-radius:50%;background:#b8ff6b;box-shadow:0 0 8px #b8ff6b;opacity:0;rotate:var(--a);animation:gdseed 1.8s ease-out var(--d) infinite}
+@keyframes gdseed{0%{opacity:1;transform:translateY(0) scale(.5)}100%{opacity:0;transform:translateY(-800%) scale(1.1)}}
+.gdres{gap:10px}
+.gdres.gold{background:linear-gradient(90deg,#fff3b0,#ffd23f,#fff3b0);color:#5a3a00;box-shadow:0 0 0 2px #e0a800}
+.gdtip{margin:0;text-align:center;font-size:15px;font-weight:700;color:var(--muted)}
+.gdhud{align-items:flex-start}
+@media (max-width:699px){.gdmsg{white-space:normal;text-align:center;max-width:90%;width:max-content;font-size:16px;line-height:1.15;padding:6px 14px;bottom:8px}.gdmsg svg{display:none}.gdstage{top:50px}.gdf{height:252px}.gdcard .rbnote{font-size:14px}.gdcard{padding:34px 12px 10px}.gdchip span{font-size:12px}.gdchip b{font-size:14px}.gdpips{gap:3px;padding:5px 7px}.gdpips i{width:7px;height:7px}.gdpips i.big{width:11px;height:11px}.gdsun{width:44px;height:44px}.gdplanet{width:40px;height:40px}.gdplanet::after{left:-12px;top:15px;width:64px;height:11px}.gdw,.gdmain{gap:10px}}
+@media (min-width:700px) and (min-height:900px){.wrap.fit .gdw{flex:1;min-height:0;gap:18px}.wrap.fit .gdmain{flex:1;min-height:0}.wrap.fit .gdf{flex:1;height:auto;min-height:380px}.gdcard{padding:22px 16px 18px}.gdcard .rbq{font-size:72px}.gdcard .rbq.long{font-size:44px}.gdhud{left:14px;right:14px;top:14px}.gdstage{top:62px}}
+@media (min-width:900px) and (orientation:landscape) and (min-height:520px){.wrap.fit .gdw{flex-direction:row;align-items:stretch;flex:1;min-height:0}.wrap.fit .gdmain{flex:1;min-height:0}.wrap.fit .gdf{flex:1;height:auto;min-height:260px}.wrap.fit .gdw .rbside{width:320px;flex:none;justify-content:center}.wrap.fit .gdw .rbpad .fk{min-height:64px}}
+@media (prefers-reduced-motion: reduce){.gdcloud,.gd-glow,.gd-tw,.gd-wob,.gdbee,.gdbee svg,.gdfx i,.gdpl.droop>svg,.gdmsg.show{animation:none}.gdfx i{opacity:0}.gdbk.go{animation:gdtiprm 1.05s steps(1)}.gdpl{transition:none}.gdsp i{animation-duration:.6s}}
+@keyframes gdtiprm{0%{translate:-50% -83%;rotate:-105deg}75%{translate:0 0;rotate:0deg}}
+@keyframes gdfade{from{opacity:.3}}
+
+/* Version 91: timer bar in the fact card, potted plant on the score screen, short-of-bloom banner */
+.gdcard{padding-bottom:12px}
+.gdtime{position:absolute;left:16px;right:16px;bottom:10px;width:auto;height:10px;margin:0}
+.gdcard .rbnote{margin-bottom:10px}
+.gdpotted{position:relative;display:inline-block;flex:none}
+.gdpotted svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gdres .gdpotted{margin:-6px 0}
+.gdmsg.short{background:rgba(255,255,255,.94)}
+.gdchip .gdq{grid-row:span 2;width:30px;height:30px;font-size:19px}
+@media (prefers-reduced-motion: reduce){.gdpl.grow>svg,.gdpl.shrink>svg{animation:gdfade .4s}}
 .fixbox{display:flex;flex-direction:column;align-items:center;gap:6px;margin:4px 0}
 .fixgo{display:inline-flex;align-items:center;gap:10px;font-size:21px;padding:14px 22px}
 .fixgo .rkx-svg{flex:none}
@@ -4780,7 +4903,7 @@ function results(){
     <div class="stars" aria-label="${stars} of 3 stars">${star(stars>=1)}${star(stars>=2)}${star(stars>=3)}</div>
     <p>${msg}</p>
     ${st.s==='fact'?(()=>{const n=st.qs.filter((q,i)=>st.res[i]&&(st.tm||[])[i]<FAST_MS).length;return `<p class="fsum">${FBOLT}Lightning-fast facts: <b>${n} of ${st.qs.length}</b></p>`})():''}
-    ${st.rbw?rbLine():''}
+    ${st.rbw?rbLine():''}${st.gdw?gdLine():''}
     ${missed.length?fixBox(missed.length):''}
     <div class="row"><button class="btn${missed.length?'':' primary'}" id="again">Play again</button><button class="btn" id="tp">Pick a topic</button><button class="btn" id="hm">Home</button></div>
     ${missed.length?`<div class="row">${[...new Set(missed.map(q=>q.tid))].filter(t=>REV[t]).map(t=>`<button class="review" data-t="${t}">Review: ${esc(REV[t].t)} →</button>`).join('')}</div>`:''}
@@ -5788,18 +5911,19 @@ const mbFall=k=>{const [,a,b]=MB_SPEEDS[mbSpeed];return Math.round(a+(b-a)*k/(MB
 const mbTxt=q=>q.q.replace(/ = \?$/,'');
 const mbSolved=q=>q.q.replace('?',q.a);
 const mbRM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
-/* level page: Practice / Meteor Blaster / Race the Buddy switch + speed picker (Version 80 added the race) */
+/* level page: Practice / Meteor Blaster / Race the Buddy / Bloom Garden switch + speed or seed picker (Version 80 added the race, Version 90 the garden) */
 function fqModeHtml(){const M=fqMode,sp=M==='meteor'?['Meteor speed',MB_SPEEDS,mbSpeed]:M==='race'?['Buddy speed',RB_SPEEDS,rbSpeed]:null;
   const btn=(m,icon,nm,sub)=>`<button type="button" class="fm${M===m?' on':''}" role="radio" aria-checked="${M===m}" data-m="${m}"><b>${icon}${nm}</b><span>${sub}</span></button>`;
   return `<div class="fmode" role="radiogroup" aria-label="How do you want to play?">
-    ${btn('practice',FBOLT,'Practice','10 facts, 10-second timer')}${btn('meteor',MB_ICON,'Meteor Blaster','Zap the falling facts')}${btn('race',RB_FLAG,'Race the Buddy','Beat your buddy to the finish')}</div>
-    ${sp?`<div class="fspeed" role="radiogroup" aria-label="${sp[0]}"><span>${sp[0]}</span>${sp[1].map(([n],k)=>`<button type="button" class="fsp${k===sp[2]?' on':''}" role="radio" aria-checked="${k===sp[2]}" data-v="${k}">${n}</button>`).join('')}</div>`:''}`}
+    ${btn('practice',FBOLT,'Practice','10 facts, 10-second timer')}${btn('meteor',MB_ICON,'Meteor Blaster','Zap the falling facts')}${btn('race',RB_FLAG,'Race the Buddy','Beat your buddy to the finish')}${btn('garden',GD_ICON,'Bloom Garden','Water a plant until it blooms')}</div>
+    ${M==='garden'?gdPickHtml():''}${sp?`<div class="fspeed" role="radiogroup" aria-label="${sp[0]}"><span>${sp[0]}</span>${sp[1].map(([n],k)=>`<button type="button" class="fsp${k===sp[2]?' on':''}" role="radio" aria-checked="${k===sp[2]}" data-v="${k}">${n}</button>`).join('')}</div>`:''}`}
 function fqModeText(){return fqMode==='meteor'
   ?`Facts fall as meteors toward your rocket. Type the answer to zap one before it reaches the shield. If one gets by, it bounces off and shows you the answer. ${MB_N} meteors a round. Pick the level you are learning. Every level is open!`
   :fqMode==='race'?`Race your ${ANIMALS[buddyKey()][0].toLowerCase()} buddy to the finish line! Each right answer moves your rocket ahead. Your buddy’s rocket flies at a steady speed set by the level. Miss one and it comes back later, so you always make it to the finish. Pick the level you are learning. Every level is open!`
+  :fqMode==='garden'?`Grow a plant! Each right answer gives it a drink (water for Earth plants, glowing ooze for alien plants) and it grows one step. Miss one, or let the 10-second timer run out, and it shrinks back a step. Get all 10 right to see it bloom, and answer ${GD_GOLD} lightning fast for a golden bloom! Pick a seed (Surprise me grows a mystery plant), then pick a level. Every level is open!`
   :`Each round has ${ROUND} facts. You have 10 seconds for each one: watch the timer bar go from green to red. Type the answer on the number pad. Pick the level you are learning. Every level is open!`}
 function fqModeWire(){app.querySelectorAll('.fmode .fm').forEach(b=>b.onclick=()=>{if(fqMode===b.dataset.m)return;fqMode=b.dataset.m;sfxKey(false);const y=scrollY;factTopics();window.scrollTo(0,y)});
-  app.querySelectorAll('.fspeed .fsp').forEach(b=>b.onclick=()=>{if(fqMode==='race')rbSpeed=+b.dataset.v;else mbSpeed=+b.dataset.v;sfxKey(false);const y=scrollY;factTopics();window.scrollTo(0,y)})}
+  app.querySelectorAll('.fspeed .fsp').forEach(b=>b.onclick=()=>{if(fqMode==='garden')gdPick=+b.dataset.v;else if(fqMode==='race')rbSpeed=+b.dataset.v;else mbSpeed=+b.dataset.v;sfxKey(false);const y=scrollY;factTopics();window.scrollTo(0,y)});gdPickWire()}
 start=(o=>function(s,t){if(s==='fact'&&fqMode==='meteor')return mbStart(t);return o(s,t)})(start);
 function mbStart(t){stopSpeech();const L=topicList('fact');
   st={s:'fact',t,i:0,score:0,qs:buildRound('fact',t),res:[],pk:[],tm:[],mb:1,name:`Meteor Blaster · ${t==='all'?'Mix It':L.find(x=>x.id===t).nm}`};
@@ -6040,6 +6164,264 @@ document.addEventListener('keydown',e=>{if(!document.getElementById('rbpad')||!r
   else if(e.key==='Enter'){e.preventDefault();rbKey('ok')}else if(e.key===' '||e.key==='Escape'){e.preventDefault();rbPause()}});
 function sfxZoom(){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.01;
   tone(c,440,t,0.22,'sine',0.11,1320);tone(c,660,t+0.05,0.2,'triangle',0.07,1760);tone(c,1320,t+0.16,0.18,'sine',0.05)}
+/* ---------- Bloom Garden (Nov 6, Version 90; reworked in Version 91): a fourth way to play any Rocket Facts level ----------
+   The child picks a seed (Sunflower, Cherry Blossom, Moon Lily, Starburst Pod) or Surprise me (a mystery plant: no name
+   anywhere until it blooms). 10 facts, each with the 10-second timer bar (FT_MS, like Practice). Each right answer tips a
+   bucket over the pot (water for Earth plants, glowing ooze for alien plants) and the plant grows ONE step (11 looks per
+   plant, 0 = seed, 10 = bloom). A wrong answer or time up = the plant wilts and shrinks back one step (never below the
+   seed); missed facts do NOT come back, so only 10 right reaches the full bloom (Fix-it on the score screen as usual).
+   A full bloom with GD_GOLD or more lightning-fast answers (under FAST_MS) is golden. Nothing is saved. */
+let gdPick=-1,gdLast=-1,gd=null;
+const GD_N=10,GD_OK_MS=950,GD_MISS_MS=2300,GD_GOLD=7,GD_GROW=720,GD_SHRINK=850;
+const GD_OL='#24402a',GD_OA='#1d1240';
+/* stage art helpers (viewBox 0 0 200 260; the plant stands on the soil at 100,198) */
+const gdStem=(d,w,c,o)=>`<path d="${d}" fill="none" stroke="${o||GD_OL}" stroke-width="${w+4}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
+const gdLeaf=(x,y,s,r,fl,c1,c2,o)=>`<g transform="translate(${x} ${y}) rotate(${fl?-r:r}) scale(${fl?-s:s} ${s})"><path d="M0 0C-10-16-28-18-38-8C-28 4-12 6 0 0Z" fill="${c1||'#6cc04a'}" stroke="${o||GD_OL}" stroke-width="${(2.4/s).toFixed(2)}" stroke-linejoin="round"/><path d="M-2-1Q-18-7-32-8" fill="none" stroke="${c2||'#3f8f2c'}" stroke-width="${(1.6/s).toFixed(2)}" stroke-linecap="round"/></g>`;
+const gdPair=(y,s,r)=>gdLeaf(99,y,s,r,0)+gdLeaf(101,y-5,s,r,1);
+const gdMoon=(x,y,s,r,fl)=>`<g transform="translate(${x} ${y}) rotate(${fl?-r:r}) scale(${fl?-s:s} ${s})"><path d="M0 0C-6-20-30-26-42-12C-28-16-12-12 0 0Z" fill="#a774ff" stroke="${GD_OA}" stroke-width="${(2.2/s).toFixed(2)}" stroke-linejoin="round"/></g>`;
+const gdDot=(x,y,r,c)=>`<circle class="gd-tw" cx="${x}" cy="${y}" r="${r}" fill="${c||'#eaffd0'}"/>`;
+const gdCloud=(C,fill,o)=>C.map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r+2.6}" fill="${o}"/>`).join('')+C.map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}"/>`).join('');
+const gdFl=(x,y,r,c)=>[0,1,2,3,4].map(k=>{const a=k*1.2566-1.5708;return `<circle cx="${(x+Math.cos(a)*r*.62).toFixed(1)}" cy="${(y+Math.sin(a)*r*.62).toFixed(1)}" r="${(r*.52).toFixed(1)}" fill="${c}" stroke="#c4527f" stroke-width="1"/>`}).join('')+`<circle cx="${x}" cy="${y}" r="${(r*.34).toFixed(1)}" fill="#ffd23f"/>`;
+const gdRing=(n,f)=>Array.from({length:n},(_,k)=>f(k*360/n,k)).join('');
+const gdMound=c=>`<ellipse cx="100" cy="195" rx="17" ry="5.5" fill="${c}"/>`;
+/* sunflower */
+const GD_SUNLV=gdPair(180,1.1,12)+gdPair(152,.95,9)+gdPair(124,.78,14)+gdLeaf(100,98,.55,20,0);
+const GD_SUN=[
+  gdMound('#6b4428')+`<g transform="rotate(-25 100 186)"><ellipse cx="100" cy="186" rx="6.5" ry="10" fill="#2e2e2e" stroke="#111" stroke-width="2"/><path d="M98 179v14M102 179v14" stroke="#e6e6e6" stroke-width="1.3"/></g>`,
+  gdStem('M100 198Q99 182 100 168',5,'#5cb43a')+gdLeaf(99,170,.62,22,0)+gdLeaf(101,170,.62,22,1),
+  gdStem('M100 198C96 165 104 135 100 104',7,'#5cb43a')+gdPair(176,1,14)+gdPair(146,.85,10)+gdPair(118,.6,22),
+  gdStem('M100 198C96 160 106 120 100 84C97 70 100 62 104 58',8,'#5cb43a')+GD_SUNLV+
+    `<g transform="translate(105 50)">${gdRing(10,a=>`<ellipse cx="0" cy="-18" rx="4" ry="9" fill="#ffd23f" stroke="#b37a00" stroke-width="1.4" transform="rotate(${a+18})"/>`)}${gdRing(10,a=>`<path d="M-6-8L0-25L6-8Z" fill="#6cc04a" stroke="${GD_OL}" stroke-width="2" stroke-linejoin="round" transform="rotate(${a})"/>`)}<circle r="14" fill="#5aa83a" stroke="${GD_OL}" stroke-width="2.4"/><path d="M-8-6L8 6M-8 6L8-6M0-10V10" stroke="#3f8f2c" stroke-width="1.4"/></g>`,
+  gdStem('M100 198C96 160 106 120 100 84',8,'#5cb43a')+GD_SUNLV+
+    `<g transform="translate(100 62)">${gdRing(16,a=>`<ellipse cx="0" cy="-36" rx="9" ry="19" fill="#ffc21a" stroke="#b37a00" stroke-width="1.8" transform="rotate(${a})"/>`)}${gdRing(16,a=>`<ellipse cx="0" cy="-31" rx="8" ry="16" fill="#ffd84a" stroke="#b37a00" stroke-width="1.4" transform="rotate(${a+11.25})"/>`)}<circle r="25" fill="#7a4a1d" stroke="#3d2410" stroke-width="2.6"/>${gdRing(12,a=>`<circle cx="0" cy="-19" r="2" fill="#5a3412" transform="rotate(${a})"/>`)}<ellipse cx="-8" cy="-4" rx="3.2" ry="4.2" fill="#1d1206"/><ellipse cx="8" cy="-4" rx="3.2" ry="4.2" fill="#1d1206"/><circle cx="-7" cy="-5.5" r="1.2" fill="#fff"/><circle cx="9" cy="-5.5" r="1.2" fill="#fff"/><ellipse cx="-14" cy="4" rx="4" ry="2.6" fill="#ff9a76" opacity=".75"/><ellipse cx="14" cy="4" rx="4" ry="2.6" fill="#ff9a76" opacity=".75"/><path d="M-8 6Q0 14 8 6" fill="none" stroke="#1d1206" stroke-width="2.4" stroke-linecap="round"/></g>`];
+/* cherry blossom */
+const gdTrunk=(d,w)=>gdStem(d,w,'#9a6643','#3d2414');
+const GD_CHB=gdTrunk('M100 198C97 172 103 150 100 122',11)+gdTrunk('M100 150Q82 138 70 116',6)+gdTrunk('M100 142Q118 130 130 108',6)+gdTrunk('M100 126Q96 108 92 90',5)+gdTrunk('M101 124Q110 106 114 92',4);
+const GD_CHERRY=[
+  gdMound('#6b4428')+`<circle cx="100" cy="187" r="7.5" fill="#b9784a" stroke="#5a3018" stroke-width="2"/><path d="M100 180Q103 187 100 194" fill="none" stroke="#7a4a28" stroke-width="1.6"/>`,
+  gdStem('M100 198Q101 186 99 172',4,'#7a9a3a')+gdLeaf(99,176,.55,30,0)+gdLeaf(100,174,.6,30,1)+gdLeaf(99,172,.4,75,1),
+  gdTrunk('M100 198C98 176 102 160 100 140',7)+gdTrunk('M100 158Q88 148 80 132',4)+gdTrunk('M100 152Q112 142 120 126',4)+
+    gdCloud([[80,124,14],[70,130,9],[90,128,9],[120,118,14],[130,124,9],[110,122,9],[100,112,16],[100,128,10]],'#6cc04a',GD_OL)+`<circle cx="96" cy="106" r="5" fill="#9be07a"/><circle cx="116" cy="113" r="4" fill="#9be07a"/><circle cx="76" cy="119" r="4" fill="#9be07a"/>`,
+  GD_CHB+gdCloud([[70,108,18],[58,118,12],[130,100,18],[142,110,12],[92,84,18],[114,86,17],[100,104,16],[80,96,12],[120,98,12]],'#6cc04a',GD_OL)+
+    [[66,100],[78,112],[60,116],[128,92],[140,106],[122,108],[90,78],[104,94],[112,80],[96,98],[84,92],[118,98]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="4.2" fill="#ff7aa8" stroke="#b03a6a" stroke-width="1.5"/>`).join(''),
+  GD_CHB+gdCloud([[64,104,24],[136,98,24],[100,70,26],[76,78,20],[124,74,20],[100,104,22],[82,112,18],[118,114,18],[50,118,14],[150,112,14]],'#ffc2d6','#c4527f')+
+    [[60,96,9],[80,72,8],[100,58,9],[122,68,8],[140,90,9],[96,86,8],[116,100,9],[76,104,8],[52,116,7],[148,110,7],[100,112,7],[130,116,7],[86,120,6],[66,82,6],[136,74,6],[110,78,6]].map(([x,y,r],k)=>gdFl(x,y,r,k%2?'#fff0f5':'#ff9ec0')).join('')];
+/* moon lily (alien) */
+const GD_MLV=gdMoon(99,180,1.05,8,0)+gdMoon(101,176,1.05,8,1)+gdMoon(100,152,.85,14,0)+gdMoon(100,146,.85,14,1)+gdMoon(100,126,.62,24,0)+gdDot(98,168,3)+gdDot(102,140,2.6)+gdDot(99,116,2.4);
+const GD_MOON=[
+  `<circle class="gd-glow" cx="100" cy="186" r="15" fill="#b388ff" opacity=".35"/><circle cx="100" cy="186" r="7.5" fill="#d6bdff" stroke="${GD_OA}" stroke-width="2"/><circle cx="97.5" cy="183.5" r="2" fill="#fff"/>`,
+  gdStem('M100 198C100 184 96 176 100 166C104 158 112 162 110 168C108 172 103 170 104 166',4,'#35d6c0',GD_OA)+gdMoon(99,184,.6,10,0)+gdMoon(101,182,.55,14,1)+gdDot(104,166,3.4,'#fff6b0'),
+  gdStem('M100 198C94 170 106 140 100 112C96 100 104 94 108 98',6,'#35d6c0',GD_OA)+gdMoon(99,180,1,8,0)+gdMoon(101,176,1,8,1)+gdMoon(100,150,.8,14,0)+gdMoon(100,144,.8,14,1)+gdDot(98,168,3)+gdDot(102,138,2.6)+gdDot(108,98,3.4,'#fff6b0'),
+  gdStem('M100 198C94 166 106 128 100 80',7,'#35d6c0',GD_OA)+GD_MLV+
+    `<circle class="gd-glow" cx="100" cy="56" r="38" fill="#b388ff" opacity=".28"/><path d="M100 22C112 38 118 52 116 64C114 76 106 82 100 82C94 82 86 76 84 64C82 52 88 38 100 22Z" fill="#9b6bff" stroke="${GD_OA}" stroke-width="2.6"/><path d="M100 27Q95 54 99 80M100 27Q108 54 107 78M100 27Q89 50 88 70" fill="none" stroke="#d2b6ff" stroke-width="2" stroke-linecap="round"/>`,
+  gdStem('M100 198C94 166 106 128 100 92',7,'#35d6c0',GD_OA)+GD_MLV+
+    `<g transform="translate(100 66)"><circle class="gd-glow" r="62" fill="#b388ff" opacity=".25"/>${gdRing(6,a=>`<path d="M0 0C12-14 12-38 0-56C-12-38-12-14 0 0Z" fill="#a774ff" stroke="${GD_OA}" stroke-width="2.4" stroke-linejoin="round" transform="rotate(${a})"/><path d="M0-8Q3-30 0-48" fill="none" stroke="#e0ccff" stroke-width="2.4" stroke-linecap="round" transform="rotate(${a})"/>`)}${gdRing(6,a=>`<path d="M0 0C8-10 8-26 0-36C-8-26-8-10 0 0Z" fill="#f0d9ff" stroke="${GD_OA}" stroke-width="2" transform="rotate(${a+30})"/>`)}${gdRing(5,a=>`<path d="M0 0L0-22" stroke="#fff6b0" stroke-width="2" transform="rotate(${a+12})"/><circle class="gd-tw" cx="0" cy="-23" r="3" fill="#fff6b0" transform="rotate(${a+12})"/>`)}<circle r="11" fill="#2a1a5e" stroke="${GD_OA}" stroke-width="2"/><path d="M3-8A8.5 8.5 0 1 0 3 8A6.5 6.5 0 1 1 3-8Z" fill="#ffe66b"/></g>`];
+/* starburst pod (alien) */
+const GD_STT=gdStem('M100 196C98 176 102 150 100 104',9,'#9be15d',GD_OA)+[['M100 178C88 174 84 162 74 164',74,164],['M100 168C112 162 116 152 126 154',126,154],['M100 148C90 142 90 132 82 130',82,130],['M100 140C110 134 112 124 120 122',120,122]].map(([d,x,y])=>gdStem(d,4,'#9be15d',GD_OA)+`<circle cx="${x}" cy="${y}" r="5" fill="#ff6fb5" stroke="${GD_OA}" stroke-width="2"/>`).join('');
+const GD_STAR=[
+  `<ellipse cx="100" cy="188" rx="10" ry="7" fill="#4fd1c5" stroke="${GD_OA}" stroke-width="2"/><circle cx="94" cy="191" r="1.6" fill="#2a9d8f"/><circle cx="106" cy="185" r="1.4" fill="#2a9d8f"/><path d="M95 187q2 2 4 0M101 187q2 2 4 0" fill="none" stroke="${GD_OA}" stroke-width="1.5" stroke-linecap="round"/>`,
+  gdStem('M98 198C94 186 102 180 96 170',4,'#9be15d',GD_OA)+`<circle cx="96" cy="168" r="5.5" fill="#ff6fb5" stroke="${GD_OA}" stroke-width="2"/>`+gdStem('M103 198C108 188 100 182 107 175',3.5,'#9be15d',GD_OA)+`<circle cx="107" cy="173" r="4.5" fill="#ff6fb5" stroke="${GD_OA}" stroke-width="2"/>`,
+  gdStem('M100 196C98 176 102 156 100 130',9,'#9be15d',GD_OA)+[['M100 178C88 174 84 162 74 164',74,164],['M100 168C112 162 116 152 126 154',126,154],['M100 150C92 144 92 136 86 134',86,134],['M100 144C108 138 110 130 116 128',116,128]].map(([d,x,y])=>gdStem(d,4,'#9be15d',GD_OA)+`<circle cx="${x}" cy="${y}" r="5" fill="#ff6fb5" stroke="${GD_OA}" stroke-width="2"/>`).join('')+`<circle cx="100" cy="124" r="9" fill="#ff8a3d" stroke="${GD_OA}" stroke-width="2.4"/>`,
+  GD_STT+`<g class="gd-wob"><g transform="translate(100 72)">${gdCloud(Array.from({length:12},(_,k)=>{const a=k*.5236;return [+(Math.cos(a)*27).toFixed(1),+(Math.sin(a)*27).toFixed(1),8]}),'#ff8a3d',GD_OA)}<circle r="30" fill="#ff8a3d"/><circle cx="-16" cy="-18" r="4" fill="#ffd166"/><circle cx="18" cy="-14" r="3" fill="#ffd166"/><circle cx="-20" cy="12" r="3" fill="#ffd166"/><circle cx="16" cy="16" r="4" fill="#ffd166"/><ellipse cx="-8" cy="-3" rx="5" ry="6.5" fill="#fff" stroke="${GD_OA}" stroke-width="1.8"/><ellipse cx="8" cy="-3" rx="5" ry="6.5" fill="#fff" stroke="${GD_OA}" stroke-width="1.8"/><circle cx="-7" cy="-1.5" r="2.6" fill="${GD_OA}"/><circle cx="9" cy="-1.5" r="2.6" fill="${GD_OA}"/><path d="M-5 9Q0 13 5 9" fill="none" stroke="${GD_OA}" stroke-width="2.2" stroke-linecap="round"/></g></g>`,
+  GD_STT+`<g transform="translate(100 70)">${gdRing(8,(a,k)=>`<path d="M-11-10Q-13-40 0-58Q13-40 11-10Z" fill="${k%2?'#ff8a3d':'#ff4fa3'}" stroke="${GD_OA}" stroke-width="2.4" stroke-linejoin="round" transform="rotate(${a})"/>`)}${gdRing(8,a=>`<circle class="gd-tw" cx="0" cy="-34" r="3.6" fill="#b8ff6b" stroke="${GD_OA}" stroke-width="1.4" transform="rotate(${a+22.5})"/>`)}<circle r="21" fill="#ffd166" stroke="${GD_OA}" stroke-width="2.6"/><path d="M-11-3q4-5 8 0M3-3q4-5 8 0" fill="none" stroke="${GD_OA}" stroke-width="2.2" stroke-linecap="round"/><path d="M-8 5Q0 15 8 5Z" fill="#b0304a" stroke="${GD_OA}" stroke-width="1.8" stroke-linejoin="round"/><ellipse cx="-13" cy="5" rx="3.4" ry="2.2" fill="#ff8aa8"/><ellipse cx="13" cy="5" rx="3.4" ry="2.2" fill="#ff8aa8"/></g>`];
+/* Version 91: 11 looks per plant (seed + one growth step per right answer). Level 0 = the old seed, 9 = the old big bud,
+   10 = the old bloom; 1 and 2 are the sprout, small and full size; 3–8 are drawn from the level so each step grows a little. */
+const gdG=L=>(L-2)/7;
+const gdSprout=(art,sc)=>`<g transform="translate(100 198) scale(${sc}) translate(-100 -198)">${art}</g>`;
+const gdSunBud=(x,y,r)=>`<g transform="translate(${x} ${y}) scale(${(r/14).toFixed(3)})">${gdRing(10,a=>`<path d="M-6-8L0-25L6-8Z" fill="#6cc04a" stroke="${GD_OL}" stroke-width="2.4" stroke-linejoin="round" transform="rotate(${a})"/>`)}<circle r="14" fill="#5aa83a" stroke="${GD_OL}" stroke-width="2.6"/><path d="M-8-6L8 6M-8 6L8-6M0-10V10" stroke="#3f8f2c" stroke-width="1.6"/></g>`;
+function gdSunMid(L){const H=[40,56,72,88,104,118][L-3],top=198-H,g=gdG(L);
+  let o=gdStem(`M100 198C98 ${198-H*.35} 103 ${198-H*.7} 100 ${top}`,4+g*4,'#5cb43a');
+  [[180,1.1,12],[152,.95,9],[124,.78,14]].forEach(([y,sz,r])=>{if(y>top+14){const k=sz*(.45+.55*g);o+=gdLeaf(99,y,k,r,0)+gdLeaf(101,y-5,k,r,1)}});
+  return o+(L<7?gdLeaf(99,top+3,.35,40,0)+gdLeaf(101,top+3,.35,40,1):gdSunBud(101,top-[6,9][L-7]*.7,[6,9][L-7]))}
+const GD_CROWN=[[-36,12,24],[36,6,24],[0,-22,26],[-24,-14,20],[24,-18,20],[0,12,22],[-18,20,18],[18,22,18],[-50,26,14],[50,20,14]];
+const GD_CBUD=[[-34,-4],[-22,8],[28,-10],[40,4],[-6,-24],[10,-6]];
+function gdCherryMid(L){const T=[34,46,56,66,74,80][L-3],top=198-T,c=[.42,.52,.62,.72,.82,.9][L-3],cy=top-18*c;
+  let o=gdTrunk(`M100 198C97 ${198-T*.3} 103 ${198-T*.6} 100 ${top}`,4+L*.8);
+  if(L>=4){const by=top+T*.35,bl=10+c*30,bh=10+c*26;o+=gdTrunk(`M100 ${by}Q${100-bl*.5} ${by-bh*.4} ${100-bl} ${by-bh}`,2+c*4)+gdTrunk(`M100 ${by-6}Q${100+bl*.5} ${by-6-bh*.4} ${100+bl} ${by-6-bh}`,2+c*4)}
+  o+=gdCloud(GD_CROWN.map(([x,y,r])=>[+(100+x*c).toFixed(1),+(cy+y*c).toFixed(1),+(r*c).toFixed(1)]),'#6cc04a',GD_OL);
+  o+=[[-14,-10],[16,-6],[-30,10]].map(([x,y])=>`<circle cx="${(100+x*c).toFixed(1)}" cy="${(cy+y*c).toFixed(1)}" r="${(5*c).toFixed(1)}" fill="#9be07a"/>`).join('');
+  if(L===8)o+=GD_CBUD.map(([x,y])=>`<circle cx="${(100+x*c).toFixed(1)}" cy="${(cy+y*c).toFixed(1)}" r="3.8" fill="#ff7aa8" stroke="#b03a6a" stroke-width="1.5"/>`).join('');
+  return o}
+const GD_MBUD=`<path d="M100 22C112 38 118 52 116 64C114 76 106 82 100 82C94 82 86 76 84 64C82 52 88 38 100 22Z" fill="#9b6bff" stroke="${GD_OA}" stroke-width="2.6"/><path d="M100 27Q95 54 99 80M100 27Q108 54 107 78M100 27Q89 50 88 70" fill="none" stroke="#d2b6ff" stroke-width="2" stroke-linecap="round"/>`;
+function gdMoonMid(L){const H=[40,54,68,82,96,110][L-3],top=198-H,g=gdG(L);
+  let o=gdStem(L<7?`M100 198C94 ${198-H*.3} 106 ${198-H*.65} 100 ${top}C97 ${top-8} 104 ${top-12} 107 ${top-7}`:`M100 198C94 ${198-H*.3} 106 ${198-H*.65} 100 ${top}`,3.5+g*3.5,'#35d6c0',GD_OA);
+  [[180,1.05,8],[150,.85,14]].forEach(([y,sz,r])=>{if(y>top+14){const k=sz*(.45+.55*g);o+=gdMoon(99,y,k,r,0)+gdMoon(101,y-4,k,r,1)+gdDot(100,y-12,2.6)}});
+  if(126>top+14)o+=gdMoon(100,126,.62*(.45+.55*g),24,0);
+  if(L<7)return o+gdDot(107,top-7,3.2,'#fff6b0');
+  const k=[.45,.7][L-7];return o+`<g transform="translate(100 ${top+2}) scale(${k}) translate(-100 -82)">${L===8?'<circle class="gd-glow" cx="100" cy="56" r="34" fill="#b388ff" opacity=".28"/>':''}${GD_MBUD}</g>`}
+const gdPod=(cy,r,face)=>`<g transform="translate(100 ${cy}) scale(${(r/30).toFixed(3)})">${gdCloud(Array.from({length:12},(_,k)=>{const a=k*.5236;return [+(Math.cos(a)*27).toFixed(1),+(Math.sin(a)*27).toFixed(1),8]}),'#ff8a3d',GD_OA)}<circle r="30" fill="#ff8a3d"/><circle cx="-16" cy="-18" r="4" fill="#ffd166"/><circle cx="18" cy="-14" r="3" fill="#ffd166"/><circle cx="-20" cy="12" r="3" fill="#ffd166"/><circle cx="16" cy="16" r="4" fill="#ffd166"/>${face?`<path d="M-12-3q4 4 8 0M4-3q4 4 8 0" fill="none" stroke="${GD_OA}" stroke-width="2.4" stroke-linecap="round"/><path d="M-4 9Q0 11 4 9" fill="none" stroke="${GD_OA}" stroke-width="2.2" stroke-linecap="round"/>`:''}</g>`;
+function gdStarMid(L){const H=[40,52,64,74,84,92][L-3],top=198-H,g=gdG(L);
+  let o=gdStem(`M100 196C98 ${198-H*.25} 102 ${198-H*.55} 100 ${top}`,4+g*5,'#9be15d',GD_OA);
+  [[178,-1],[168,1],[148,-1],[140,1]].forEach(([ay,sd])=>{if(ay>top+12){const k=.5+.5*g,ex=100+sd*26*k,ey=ay-14*k;
+    o+=gdStem(`M100 ${ay}C${100+sd*12*k} ${ay-4*k} ${100+sd*16*k} ${ay-16*k} ${ex} ${ey}`,3+k,'#9be15d',GD_OA)+`<circle cx="${ex.toFixed(1)}" cy="${ey.toFixed(1)}" r="${(2+3*k).toFixed(1)}" fill="#ff6fb5" stroke="${GD_OA}" stroke-width="2"/>`}});
+  if(L<7){const r=5+L*.8;return o+`<circle cx="100" cy="${top-r*.7}" r="${r}" fill="#ff8a3d" stroke="${GD_OA}" stroke-width="2.4"/>`}
+  const r=[14,21][L-7];return o+gdPod(top-r*.85,r,L===8)}
+const gdLevels=(old,mid,s1)=>[old[0],gdSprout(old[1],s1),old[1],...[3,4,5,6,7,8].map(mid),old[3],old[4]];
+const GD_PLANTS=[
+  {k:'sun',nm:'Sunflower',alien:0,art:gdLevels(GD_SUN,gdSunMid,.7),vb:'50 10 100 100',ty:[186,180,172,158,142,126,110,94,78,50,62]},
+  {k:'cherry',nm:'Cherry Blossom',alien:0,art:gdLevels(GD_CHERRY,gdCherryMid,.75),vb:'24 40 152 152',ty:[187,182,174,152,140,126,114,102,94,95,92]},
+  {k:'moon',nm:'Moon Lily',alien:1,art:gdLevels(GD_MOON,gdMoonMid,.7),vb:'36 2 128 128',ty:[186,178,168,156,142,128,114,90,70,56,66]},
+  {k:'star',nm:'Starburst Pod',alien:1,art:gdLevels(GD_STAR,gdStarMid,.75),vb:'36 6 128 128',ty:[188,176,170,152,140,128,116,104,92,72,70]}];
+const gdSvg=(P,L,cls)=>`<svg class="${cls||''}" viewBox="0 0 200 260" aria-hidden="true">${P.art[L]}</svg>`;
+const gdMini=(i,w)=>{const P=GD_PLANTS[i];return `<svg class="gdmini" viewBox="${P.vb}" width="${w}" height="${w}" aria-hidden="true">${P.art[10]}</svg>`};
+/* the plant in its pot at any level (score screen) */
+const gdPotted=(i,L,h)=>{const P=GD_PLANTS[i];return `<span class="gdpotted" style="height:${h}px;width:${Math.round(h*200/260)}px">${GD_POT(P.alien)}${gdSvg(P,L)}</span>`};
+const GD_MYST='<span class="gdq" aria-hidden="true">?</span>';
+const GD_ICON='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22V12" stroke="#3f8f2c" stroke-width="2.4" stroke-linecap="round"/><path d="M12 17C8 17 5.5 15 5 12c3.5 0 6 1.5 7 5zM12 15c3-.5 5-2.5 5.5-5-3 0-5 1.5-5.5 5z" fill="#6cc04a" stroke="#24402a" stroke-width="1.2" stroke-linejoin="round"/><g transform="translate(12 7)">'+[0,72,144,216,288].map(a=>`<ellipse cx="0" cy="-3.6" rx="2.6" ry="3.6" fill="#ff9ec0" stroke="#c4527f" stroke-width="1" transform="rotate(${a})"/>`).join('')+'<circle r="2.2" fill="#ffd23f"/></g></svg>';
+const GD_BUCKET=a=>a
+  ?`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 22Q32-4 52 22" fill="none" stroke="${GD_OA}" stroke-width="2.6"/><path d="M12 18L52 18L46 58L18 58Z" fill="#7c6cf0" stroke="${GD_OA}" stroke-width="3" stroke-linejoin="round"/><path d="M14.5 32L49.5 32M16.5 46L47.5 46" stroke="#5a4bc9" stroke-width="2.4"/><ellipse cx="32" cy="18" rx="20" ry="5" fill="#5a4bc9" stroke="${GD_OA}" stroke-width="2.4"/><ellipse cx="32" cy="18" rx="16.5" ry="3.4" fill="#8dff4f"/><path d="M16 19Q15 27 17 30Q19 27 18 20ZM44 20Q46 30 44 34Q42 30 42 21Z" fill="#8dff4f" stroke="${GD_OA}" stroke-width="1.4"/><circle cx="26" cy="12" r="3" fill="#b9ff8f" stroke="${GD_OA}" stroke-width="1.2"/><circle cx="36" cy="8" r="2.2" fill="#b9ff8f" stroke="${GD_OA}" stroke-width="1.2"/><circle cx="25" cy="40" r="2" fill="#bfb5ff"/><circle cx="39" cy="39" r="2" fill="#bfb5ff"/></svg>`
+  :`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 22Q32-4 52 22" fill="none" stroke="#1d3a66" stroke-width="2.6"/><path d="M12 18L52 18L46 58L18 58Z" fill="#4f8fe0" stroke="#1d3a66" stroke-width="3" stroke-linejoin="round"/><path d="M14.5 32L49.5 32M16.5 46L47.5 46" stroke="#2f6bc0" stroke-width="2.4"/><path d="M22 24L20 50" stroke="#9cc8ff" stroke-width="3" stroke-linecap="round" opacity=".7"/><ellipse cx="32" cy="18" rx="20" ry="5" fill="#2f6bc0" stroke="#1d3a66" stroke-width="2.4"/><ellipse cx="32" cy="18" rx="16.5" ry="3.4" fill="#8fd3ff"/></svg>`;
+const GD_POT=a=>a
+  ?`<svg class="gdpot" viewBox="0 0 200 260" aria-hidden="true"><path d="M64 206L136 206L128 246Q100 256 72 246Z" fill="#3b3f63" stroke="${GD_OA}" stroke-width="3" stroke-linejoin="round"/><circle cx="82" cy="226" r="4" fill="#7dffcf"/><circle cx="100" cy="229" r="4" fill="#ff8ad8"/><circle cx="118" cy="226" r="4" fill="#7dffcf"/><rect x="56" y="192" width="88" height="15" rx="7.5" fill="#5b61a0" stroke="${GD_OA}" stroke-width="3"/><ellipse cx="100" cy="196" rx="38" ry="5.5" fill="#2b6b5a"/><circle cx="84" cy="196" r="1.6" fill="#8dffcf"/><circle cx="114" cy="195" r="1.4" fill="#8dffcf"/></svg>`
+  :`<svg class="gdpot" viewBox="0 0 200 260" aria-hidden="true"><path d="M66 206L134 206L126 252L74 252Z" fill="#d9774a" stroke="#7a3b1f" stroke-width="3" stroke-linejoin="round"/><path d="M72 222L128 222" stroke="#c0623a" stroke-width="2.4"/><rect x="58" y="192" width="84" height="16" rx="5" fill="#e88a5a" stroke="#7a3b1f" stroke-width="3"/><ellipse cx="100" cy="196" rx="38" ry="5.5" fill="#5b3a24"/></svg>`;
+const GD_BEE='<svg viewBox="0 0 40 30" aria-hidden="true"><ellipse cx="16" cy="6" rx="7" ry="5" fill="#e6f6ff" stroke="#1d1206" stroke-width="1.6" opacity=".95"/><ellipse cx="24" cy="6" rx="7" ry="5" fill="#e6f6ff" stroke="#1d1206" stroke-width="1.6" opacity=".95"/><ellipse cx="20" cy="18" rx="13" ry="9" fill="#ffd23f" stroke="#1d1206" stroke-width="2"/><path d="M15 10V26M22 9.5V26.5" stroke="#1d1206" stroke-width="3"/><circle cx="29" cy="16" r="1.8" fill="#1d1206"/><path d="M7 18H3" stroke="#1d1206" stroke-width="2" stroke-linecap="round"/></svg>';
+const GD_DRINK=[['Splash!','Drink up!','Splish!','Glug, glug!','Yum, water!'],['Bloop!','Ooze time!','Gloop!','Slurp!','Goo-licious!']];
+start=(o=>function(s,t){if(s==='fact'&&fqMode==='garden')return gdStart(t);return o(s,t)})(start);
+function gdPickPlant(){if(gdPick>=0)return gdPick;let i;do i=Math.floor(Math.random()*GD_PLANTS.length);while(i===gdLast);return i}
+const gdName=(g,cap)=>g.mys?(cap?'Your mystery plant':'your mystery plant'):(cap?'Your ':'your ')+g.P.nm;
+function gdStart(t){stopSpeech();const L=topicList('fact'),bk=buddyKey(),mys=gdPick<0,pi=gdPickPlant(),P=GD_PLANTS[pi],A=P.alien;gdLast=pi;
+  st={s:'fact',t,i:0,score:0,qs:buildRound('fact',t),res:[],pk:[],tm:[],gd:1,name:`Bloom Garden · ${t==='all'?'Mix It':L.find(x=>x.id===t).nm}`};
+  app.classList.add('fit');
+  app.innerHTML=`
+  <div class="qbar"><button class="back" id="bk">← Levels</button><div class="qbud"><div class="bbody b-idle" id="qbud" aria-hidden="true">${avatar(bk,50)}</div><div class="bubble qsay" id="qsay" role="status"></div></div><div class="qmeta"><span class="title">${esc(st.name)}</span>${rktHtml()}</div></div>
+  <div class="gdw">
+    <div class="gdmain">
+      <section class="gdf ${A?'alien':'earth'}" id="gdf" aria-label="${mys?'Mystery plant garden':esc(P.nm)+' garden'}">
+        ${A?'<i class="gdplanet"></i><i class="gdstar2"></i>':'<i class="gdsun"></i><i class="gdcloud c1"></i><i class="gdcloud c2"></i>'}<i class="gdground"></i>
+        <div class="gdhud"><span class="gdchip" id="gdchip">${mys?GD_MYST:gdMini(pi,30)}<b id="gdnm">${mys?'Mystery plant':esc(P.nm)}</b><span id="gdsn">Growth 0 of ${GD_N}</span></span>
+          <span class="gdpips" id="gdpips" aria-hidden="true">${Array.from({length:GD_N},(_,k)=>`<i class="${k===GD_N-1?'big':''}"></i>`).join('')}</span></div>
+        <div class="gdstage" id="gdst">${GD_POT(A)}<div class="gdpl" id="gdpl" data-l="0">${gdSvg(P,0)}</div>
+          <div class="gdbk" id="gdbk">${GD_BUCKET(A)}</div><div class="gdpour" id="gdpour">${Array.from({length:7},(_,k)=>`<i style="--d:${(k*.055).toFixed(3)}s;--x:${[0,-6,5,-3,7,-8,2][k]}%"></i>`).join('')}</div>
+          <i class="gdspl" id="gdspl"></i><div class="gdsp" id="gdsp"></div><div class="gdfx" id="gdfx"></div></div>
+        <div class="gdmsg" id="gdmsg"></div>
+        <span class="sr" id="gdsr" aria-live="polite"></span>
+      </section>
+      <div class="rbcard gdcard"><div class="rbq" id="gdq"></div><p class="rbnote" id="gdnote"></p>
+        <button class="speak rbsay" id="gdsay" type="button" aria-label="Read the fact out loud">${SPK_ICON}Read to me</button>
+        <div class="ftime gdtime" id="gdtime" role="progressbar" aria-label="Seconds left" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10"><i id="gdtbar"></i></div></div>
+    </div>
+    <div class="rbside"><div class="fpad mbpad rbpad" id="gdpad"><div class="fshow"><span class="fans empty" id="gdans" role="status" aria-live="polite"></span></div>
+      <div class="fkeys" role="group" aria-label="Number pad">${['1','2','3','4','5','6','7','8','9'].map(n=>`<button class="fk" type="button" data-k="${n}">${n}</button>`).join('')}
+      <button class="fk fdel" type="button" data-k="del" aria-label="Delete">⌫</button><button class="fk" type="button" data-k="0">0</button>
+      <button class="fk fok" id="gdok" type="button" data-k="ok" disabled>Check</button></div></div></div>
+  </div>`;
+  const f=document.getElementById('gdf');
+  gd={f,pi,P,A,mys,n:0,cur:-1,v:'',lv:0,fast:0,el:0,lock:true,done:false,last:performance.now(),raf:0};
+  gdTop();
+  app.querySelectorAll('#gdpad .fk').forEach(b=>b.onclick=()=>gdKey(b.dataset.k));
+  document.getElementById('bk').onclick=()=>{gdStop();app.classList.remove('fit');factTopics()};
+  document.getElementById('gdsay').onclick=e=>{const q=gd&&st.qs[gd.cur];if(q&&!gd.done&&!gd.lock)speak(q.say,e.currentTarget)};
+  document.getElementById('gdq').innerHTML='<span class="rbready">Ready…</span>';
+  const hi=mys?`Let’s grow a mystery plant, ${player?player.name:'friend'}! What will it be?`:`Let’s grow ${A?'an alien':'a'} ${P.nm}, ${player?player.name:'friend'}!`;
+  gdPaint();gdTime();fuelSay(hi,3500);
+  gdSr(`${hi} Each right answer makes it grow. A miss makes it shrink.`);
+  gd.raf=requestAnimationFrame(gdLoop);gdLater(1100,gdNext);window.scrollTo(0,0)}
+function gdStop(){if(gd){cancelAnimationFrame(gd.raf);(gd.tids||[]).forEach(clearTimeout);gd=null}stopSpeech()}
+/* timers that die with the round */
+function gdLater(ms,fn){const g=gd;if(!g)return;const id=setTimeout(()=>{if(gd===g&&g.f.isConnected)fn()},ms);(g.tids=g.tids||[]).push(id)}
+/* the fact clock: runs only while a fact waits for an answer, not while Read to me talks or the app is hidden */
+function gdLoop(now){if(!gd||!gd.f.isConnected){gd=null;return}const dt=Math.min(100,now-gd.last);gd.last=now;
+  if(!document.hidden&&!curU&&!gd.done&&!gd.lock&&gd.cur>=0){gd.el+=dt;gdTime();if(gd.el>=FT_MS){gdCheck(true);return void(gd&&(gd.raf=requestAnimationFrame(gdLoop)))}}
+  gd.raf=requestAnimationFrame(gdLoop)}
+function gdTime(){const b=document.getElementById('gdtbar'),w=document.getElementById('gdtime');if(!b||!gd)return;const f=Math.max(0,1-gd.el/FT_MS);
+  b.style.width=(f*100).toFixed(2)+'%';b.style.background=`hsl(${Math.round(120*f)} 78% 44%)`;w.classList.toggle('low',f<.3&&f>0);w.classList.toggle('out',f<=0);
+  w.setAttribute('aria-valuenow',Math.ceil(f*10))}
+function gdPaint(){const a=document.getElementById('gdans');if(!a||!gd)return;a.textContent=gd.v;a.classList.toggle('empty',!gd.v);
+  a.setAttribute('aria-label',gd.v?`Your answer: ${gd.v}`:'No answer yet');const ok=document.getElementById('gdok');if(ok)ok.disabled=!gd.v||gd.lock}
+function gdSr(t){const s=document.getElementById('gdsr');if(s)s.textContent=t}
+function gdMsg(t,cls){const m=document.getElementById('gdmsg');if(!m)return;m.className='gdmsg'+(t?' show':'')+(cls?' '+cls:'');m.innerHTML=t}
+function gdTop(){gd.f.style.setProperty('--top',(gd.P.ty[gd.lv]/2.6).toFixed(1)+'%')}
+function gdNext(){if(!gd)return;if(gd.n>=st.qs.length)return gdEnd();
+  const k=gd.n++,q=st.qs[k];gd.cur=k;gd.v='';gd.el=0;gd.lock=false;st.i=k;
+  const el=document.getElementById('gdq');el.className='rbq'+(fqLong(q)?' long':'');el.textContent=q.q;
+  document.getElementById('gdnote').textContent='';gdTime();
+  const a=document.getElementById('gdans');a.classList.remove('right','wrong');gdPaint();gdSr(q.say)}
+function gdKey(k){if(!gd||gd.done||gd.lock)return;
+  if(k==='del'){if(!gd.v)return;gd.v=gd.v.slice(0,-1);sfxKey(true);gdPaint();return}
+  if(k==='ok'){gdCheck();return}
+  if(gd.v.length>=fqMax())return;gd.v=gd.v==='0'?k:gd.v+k;sfxKey(false);gdPaint();if(gd.v===st.qs[gd.cur].a)gdCheck()}
+/* show the plant at its level; how = 'grow' | 'shrink' */
+function gdShow(how){const pl=document.getElementById('gdpl'),L=gd.lv;pl.innerHTML=gdSvg(gd.P,L);pl.dataset.l=L;gdTop();
+  document.getElementById('gdsn').textContent=L===GD_N?'In bloom!':`Growth ${L} of ${GD_N}`;
+  document.querySelectorAll('#gdpips i').forEach((p,k)=>p.classList.toggle('on',k<L));
+  pl.classList.remove('grow','shrink','droop');void pl.offsetWidth;pl.classList.add(how)}
+function gdCheck(timeUp){if(!gd||gd.lock)return;const k=gd.cur,q=st.qs[k],v=timeUp?'':gd.v;if(!timeUp&&!v)return;stopSpeech();
+  const ok=v===q.a,ms=Math.round(gd.el);gd.lock=true;
+  st.res[k]=ok;st.pk[k]=v;st.tm[k]=ms;if(ok)st.score++;
+  const a=document.getElementById('gdans'),el=document.getElementById('gdq'),bud=document.getElementById('qbud'),last=gd.n>=st.qs.length;
+  a.classList.add(ok?'right':'wrong');el.textContent=q.q.replace('?',q.a);el.classList.add(ok?'ok':'no');gdPaint();gdTime();
+  if(ok){const fast=ms<FAST_MS;if(fast)gd.fast++;gd.lv++;const L=gd.lv;
+    rktStep();buddyAct(bud,'b-yay');gdPour(fast);
+    gdLater(GD_GROW,()=>{if(L<GD_N){gdShow('grow');if(fast)sfxSparkle();else sfxGrow()}});
+    const m=RKT_MS.indexOf(st.score);
+    if(L===GD_N)fuelSay(`${pick(GD_DRINK[gd.A])} Watch it bloom!`,2600);
+    else if(L===GD_N-1&&last)fuelSay(`${pick(GD_DRINK[gd.A])} It grew!`,2200);
+    else if(L===GD_N-1)fuelSay('One more to bloom!',2200);
+    else if(m>=0)fuelSay(['Star 1! Engines warming up!','Star 2! Halfway full!','Star 3! Boosters ready!'][m],2200);
+    else fuelSay(fast?pick(['Lightning fast! It grew!','Sparkles! So fast!']):`${pick(GD_DRINK[gd.A])} It grew!`,2200);
+    gdSr(`Right! ${q.say.replace(/what number|what\?/i,q.a)} It grew to ${L} of ${GD_N}.`);
+    gdLater(L===GD_N?GD_GROW+80:GD_OK_MS,gdNext)}
+  else{const from=gd.lv;gd.lv=Math.max(0,gd.lv-1);
+    a.classList.remove('nope');void a.offsetWidth;a.classList.add('nope');sfxWrong();buddyAct(bud,'b-oops');
+    const pl=document.getElementById('gdpl');pl.classList.remove('grow','shrink','droop');void pl.offsetWidth;pl.classList.add('droop');
+    if(from>0)gdLater(GD_SHRINK,()=>{gdShow('shrink');sfxShrink()});
+    document.getElementById('gdnote').textContent=timeUp?'Time’s up!':`You typed ${v}.`;
+    fuelSay(timeUp?pick(['Time’s up! It got thirsty.','Too slow! It wilted a little.']):from>0?pick(['Oh no, it shrank! Keep going!','It wilted a little. You can grow it back!','Uh-oh! Give it the right answer next time.']):pick(['It needs right answers to grow. Look!','Look at the answer. Next one!']),GD_MISS_MS);
+    gdSr(`${timeUp?'Time’s up.':'Not quite.'} ${q.q.replace('?',q.a)}.${from>0?` Your plant shrank to ${gd.lv} of ${GD_N}.`:''}`);
+    gdLater(GD_MISS_MS,gdNext)}}
+/* the bucket lifts, tips water or ooze into the pot, and goes back */
+function gdPour(fast){const b=document.getElementById('gdbk'),p=document.getElementById('gdpour'),sp=document.getElementById('gdspl');
+  [b,p,sp].forEach(e=>{e.classList.remove('go');void e.offsetWidth;e.classList.add('go')});sfxPour(gd.A);
+  if(fast)gdLater(GD_GROW-80,()=>gdSpark(8,'fast'));else gdLater(GD_GROW+40,()=>gdSpark(5,'grow'))}
+function gdSpark(n,cls){const box=document.getElementById('gdsp');if(!box)return;
+  box.innerHTML=Array.from({length:n},(_,k)=>{const a=k/n*6.283+Math.random()*.5,r=26+Math.random()*16;
+    return `<i class="${cls}" style="--x:${(Math.cos(a)*r).toFixed(1)}%;--y:${(Math.sin(a)*r*.8).toFixed(1)}%;--d:${(Math.random()*.15).toFixed(2)}s"></i>`}).join('')}
+/* end of the round: a full bloom only after 10 right in a row; otherwise the plant stays where it got to */
+function gdEnd(){gd.done=true;gd.lock=true;gdPaint();const P=gd.P,L=gd.lv,f=gd.f,bloom=L===GD_N,gold=bloom&&gd.fast>=GD_GOLD;
+  st.gdw={pi:gd.pi,lv:L,gold,mys:gd.mys};
+  if(!bloom){const nm=gdName(gd,1);
+    gdMsg(`<span>${esc(nm)} grew to ${L} of ${GD_N}!</span>`,'short');
+    fuelSay(gd.mys?'Get all 10 right to find out what it is!':`Get all 10 right to see it bloom!`,3000);
+    gdSr(`${nm} grew to ${L} of ${GD_N}. Get all 10 right to see it bloom.`);
+    setTimeout(()=>{if(f.isConnected&&st.gd){gdStop();results()}},2400);return}
+  gdShow('grow');const pl=document.getElementById('gdpl');pl.classList.add('bloom');if(gold)f.classList.add('gold');
+  f.classList.add('bloomed');gdFx(P.k);gdSpark(14,gold?'gold':'grow');sfxBloom(gold);
+  const nm=(gold?'Golden ':'')+P.nm;
+  if(gd.mys){document.getElementById('gdnm').textContent=P.nm;const c=document.getElementById('gdchip');c.querySelector('.gdq').outerHTML=gdMini(gd.pi,30)}
+  gdMsg(`${GD_ICON}<span>${gd.mys?`It’s a ${esc(nm)}!`:`Your ${esc(nm)} bloomed!`}</span>`,gold?'gold':'');
+  fuelSay(gd.mys?`Surprise! It’s ${gold?'a golden':P.alien?'an alien':'a'} ${P.nm}!`:gold?`WOW! A golden ${P.nm}!`:pick(['It bloomed! You did it!','So pretty! You grew it!','Look what you grew!']),3200);
+  gdSr(gd.mys?`Surprise! It’s a ${nm}. It bloomed!`:`Your ${nm} bloomed!`);
+  setTimeout(()=>{if(f.isConnected&&st.gd){gdStop();results()}},3000)}
+function gdFx(k){const fx=document.getElementById('gdfx');if(!fx)return;const R=Math.random;
+  fx.innerHTML=k==='sun'?`<span class="gdbee">${GD_BEE}</span>`
+    :k==='cherry'?Array.from({length:14},(_,i)=>`<i class="pet" style="left:${(8+R()*84).toFixed(0)}%;--d:${(R()*1.6).toFixed(2)}s;--s:${(.7+R()*.6).toFixed(2)}"></i>`).join('')
+    :k==='moon'?Array.from({length:14},(_,i)=>`<i class="mspk" style="left:${(26+R()*48).toFixed(0)}%;--d:${(R()*1.8).toFixed(2)}s"></i>`).join('')
+    :Array.from({length:16},(_,i)=>`<i class="seed" style="--a:${i*22.5}deg;--d:${i%2?.9:0}s"></i>`).join('')}
+/* score-screen line (patch_facts.py adds it to results). A mystery plant keeps its name secret until it blooms. */
+function gdLine(){const w=st.gdw,P=GD_PLANTS[w.pi],bloom=w.lv===GD_N,nm=(w.gold?'Golden ':'')+P.nm;
+  const t=bloom?(w.mys?`Your mystery plant was a ${esc(nm)}!`:`Your ${esc(nm)} bloomed!`):`${w.mys?'Your mystery plant':`Your ${esc(P.nm)}`} grew to ${w.lv} of ${GD_N}.`;
+  const tip=bloom?(w.gold?'':`Answer ${GD_GOLD} lightning fast to grow a golden one!`):(w.mys?'Get all 10 right to see it bloom and find out what it is!':'Get all 10 right to see it bloom!');
+  return `<p class="rbres gdres${bloom?' won':''}${w.gold?' gold':''}">${gdPotted(w.pi,w.lv,64)}<span>${t}</span></p>${tip?`<p class="gdtip">${tip}</p>`:''}`}
+/* level page: seed picker (in the speed-picker spot, see fqModeHtml in meteor.js) */
+function gdPickHtml(){const o=(v,nm)=>`<option value="${v}"${v===gdPick?' selected':''}>${nm}</option>`;
+  return `<div class="gdseeds"><label for="gdsel">Pick a seed</label><span class="gdsicon" id="gdsicon" aria-hidden="true">${gdPick<0?GD_MYST:gdMini(gdPick,30)}</span>
+    <div class="selwrap"><select class="bksel" id="gdsel">${o(-1,'Surprise me! (mystery)')}${GD_PLANTS.map((P,i)=>o(i,`${P.nm}${P.alien?' (alien)':''}`)).join('')}</select></div></div>`}
+/* Version 92: the seed picker is a drop-down; picking only swaps the little icon (no page redraw) */
+function gdPickWire(){const s=document.getElementById('gdsel');if(!s)return;
+  s.onchange=()=>{gdPick=+s.value;sfxKey(false);const ic=document.getElementById('gdsicon');if(ic)ic.innerHTML=gdPick<0?GD_MYST:gdMini(gdPick,30)}}
+document.addEventListener('keydown',e=>{if(!document.getElementById('gdpad')||!gd||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(/^[0-9]$/.test(e.key)){e.preventDefault();gdKey(e.key)}else if(e.key==='Backspace'){e.preventDefault();gdKey('del')}
+  else if(e.key==='Enter'){e.preventDefault();gdKey('ok')}});
+/* sounds: splish (water) / bloop (ooze), growing chime, sparkle, bloom */
+function sfxPour(alien){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.3;
+  if(alien){tone(c,170,t,0.3,'sine',0.16,460);tone(c,240,t+0.18,0.24,'sine',0.11,620);[0.32,0.42,0.5].forEach((d,k)=>tone(c,700+k*160,t+d,0.06,'sine',0.06,1100+k*120))}
+  else{[0,0.06,0.13,0.19,0.27].forEach((d,k)=>tone(c,1500-k*140+Math.random()*120,t+d,0.07,'sine',0.07,700-k*40));tone(c,320,t+0.3,0.14,'triangle',0.05,180)}}
+function sfxGrow(){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.02;[523,659,784,1047].forEach((f,k)=>tone(c,f,t+k*0.08,0.22,'triangle',0.09))}
+function sfxShrink(){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.02;tone(c,523,t,0.18,'triangle',0.08,392);tone(c,392,t+0.14,0.26,'triangle',0.07,262)}
+function sfxSparkle(){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.02;[1568,2093,2637].forEach((f,k)=>tone(c,f,t+k*0.05,0.16,'sine',0.045))}
+function sfxBloom(gold){if(!soundOn)return;const c=ac();if(!c)return;const t=c.currentTime+0.05;
+  [523,659,784,1047,1319,1568].forEach((f,k)=>tone(c,f,t+k*0.09,0.4,'triangle',0.09));tone(c,262,t,0.9,'sine',0.08);
+  if(gold)[2093,2637,3136].forEach((f,k)=>tone(c,f,t+0.6+k*0.07,0.3,'sine',0.05))}
 home();
 })();
 </script>
